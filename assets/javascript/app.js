@@ -8,6 +8,9 @@ var topics = ["dog", "cat", "rabbit", "hamster", "skunk", "goldfish", "bird", "f
 // giphy api: http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=YOUR_API_KEY&limit=5
 var queryUrl = "http://api.giphy.com/v1/gifs/search?q=";
 
+//category name
+var cName;
+
 //gif container
 var gifDiv;
 
@@ -45,6 +48,8 @@ var offsetCount = 0;
 function addAnimal() {
     //make a list of links based on the list of topics
     for (var i = 0; i < topics.length; i++) {
+        //initialize category name
+        let cName = topics[i];
         //initialize category to the topics inside the array
         //changes spaces to + it helps to build the url
         let tempCategory = topics[i].replace(/\s+/g, '+');
@@ -70,6 +75,9 @@ function addAnimal() {
             //empty columns
             $("#gifColumns").empty();
 
+            //update category name in html
+            $("#categoryName").text(cName);
+
             //initializes the topics to be used in the dropdown
             callApi(topicUrl);
         });
@@ -85,6 +93,9 @@ $(document).ready(function () {
 
     //initialize currCategory
     currCategory = "animals";
+
+    //update category name in html
+    $("#categoryName").text(currCategory);
 
     //set offset to 0 
     offsetCount = 0;
