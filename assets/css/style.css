@@ -4,3 +4,8 @@ body{
 .bg-pink{
     background-color: #ea2990;
 }
+
+.invalid-feedback{
+    width: auto;
+    margin-top: 0;
+}

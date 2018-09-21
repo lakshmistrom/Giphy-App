@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
     <!-- downloadjs -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.8/download.js" integrity="sha256-YZWhYBzoS9ytg//A93wj7gohVoN5rw78SPmTR2F/H7Q=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.8/download.js" integrity="sha256-YZWhYBzoS9ytg//A93wj7gohVoN5rw78SPmTR2F/H7Q="
+        crossorigin="anonymous"></script>
     <!-- custom styling -->
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
 </head>
@@ -29,7 +30,12 @@
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
-                <input id="addAnimal" class="form-control mr-sm-2" type="add" placeholder="Add Animal" aria-label="add">
+                
+                <input id="addAnimal" class="form-control mr-sm-2" type="add" placeholder="Add Animal to category"
+                    aria-label="add">
+                <div class="invalid-feedback text-white mr-2">
+                    Try again.
+                </div>
                 <button id="runAddAnimal" class="btn btn-outline-light my-2 my-sm-0" type="submit">Submit</button>
             </form>
         </div>
@@ -37,7 +43,7 @@
     <div class="container my-4 clearfix">
         <h1 id="categoryName" class="text-white"></h1>
         <p id="movieFound" class="text-white">
-            I thought you might like this movie: 
+            I thought you might like this movie:
             <span id="movieTitle" class="text-info"></span>
             | <span id="year" class="text-info"></span>
         </p>

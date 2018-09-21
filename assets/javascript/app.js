@@ -263,18 +263,32 @@ $("#runAddAnimal").click(function (event) {
     // (in addition to clicks). Prevents the page from reloading on form submit.
     event.preventDefault();
 
-    //target input from add animal input box and add it to the topics array
-    topics.push($("#addAnimal").val().trim());
-    // console.log($("#addAnimal").val().trim());
+    //input category
+    let inputCategory = $("#addAnimal").val().trim();
 
-    //clear text box
-    $("#addAnimal").val("");
+    //define input pattern
+    let pattern = /^[a-zA-Z ]+$/;
 
-    //empty dropdown menu
-    $(".dropdown-menu").empty();
+    //remove is-invalid class
+    $("#addAnimal").removeClass("is-invalid");
 
-    //add onto the list of animals
-    addAnimal();
+    //input validation
+    if (pattern.test(inputCategory)) {
+        //target input from add animal input box and add it to the topics array
+        topics.push(inputCategory);
+
+        //clear text box
+        $("#addAnimal").val("");
+
+        //empty dropdown menu
+        $(".dropdown-menu").empty();
+
+        //add onto the list of animals
+        addAnimal();
+    } else {
+        //show try again
+        $("#addAnimal").addClass("is-invalid");
+    }
 });
 
 //initializes gif 
