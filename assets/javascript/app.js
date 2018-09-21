@@ -6,7 +6,10 @@
 var topics = ["dog", "cat", "rabbit", "hamster", "skunk", "goldfish", "bird", "ferret", "turtle", "sugar glider", "chinchilla", "hedgehog", "hermit crab", "gerbill", "pygmy goat", "chicken", "capybara", "teacup pig", "serval", "salamander", "frog"];
 
 // giphy api: http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=YOUR_API_KEY&limit=5
-var queryUrl = "http://api.giphy.com/v1/gifs/search?q=";
+var queryUrl = "https://api.giphy.com/v1/gifs/search?q=";
+
+//movie url: http://www.omdbapi.com/?t=octopus
+var movieQueryUrl = "https://www.omdbapi.com/?t=";
 
 //category name
 var cName;
@@ -68,9 +71,12 @@ function addAnimal() {
             //set offset to 0 when new category is clicked
             offsetCount = 0;
 
-            //build topic url
+            //build gif url
             //let is necessary given scope issues
-            let topicUrl = makeUrl();
+            let topicUrl = makeGifUrl();
+
+            //build movie url
+            let movieTopicUrl = makeMovieUrl();
 
             //empty columns
             $("#gifColumns").empty();
@@ -79,7 +85,7 @@ function addAnimal() {
             $("#categoryName").text(cName);
 
             //initializes the topics to be used in the dropdown
-            callApi(topicUrl);
+            callApi(topicUrl, movieTopicUrl);
         });
 
         //add list of topics onto the html
@@ -101,7 +107,7 @@ $(document).ready(function () {
     offsetCount = 0;
 
     //loads a list of 10 animals
-    callApi(makeUrl());
+    callApi(makeGifUrl(), makeMovieUrl());
 
     //remove click handler
     $("#viewMore").off("click");
@@ -112,20 +118,29 @@ $(document).ready(function () {
         offsetCount += 10;
 
         //loads a list of 10 animals
-        callApi(makeUrl());
+        callApi(makeGifUrl(), makeMovieUrl());
     });
 });
-function makeUrl() {
+
+//builds gif url
+function makeGifUrl() {
     //set up  url
     return queryUrl + currCategory + "&api_key=GNoX2M7isIvDEl7iH6lwnneiUlpYTSVa&limit=10&offset=" + offsetCount;
 }
-function callApi(url) {
-    //put ajax call here
-    console.log(url);
 
-    //make call to the api
+//builds movie url
+function makeMovieUrl() {
+    //set up  url
+    return movieQueryUrl + currCategory + "&apikey=332cac25";
+}
+//makes requests to the api's
+function callApi(gifUrl, movieUrl) {
+    //put ajax call here
+    console.log(gifUrl + " " + movieUrl);
+
+    //make call to the gif api
     $.ajax({
-        url: url,
+        url: gifUrl,
         method: "GET",
     }).then(function (response) {
         console.log(response);
@@ -202,6 +217,40 @@ function callApi(url) {
             }
         });
     });
+
+    //make call to movie api
+    $.ajax({
+        url: movieUrl,
+        method: "GET",
+    }).then(function (response) {
+        //print result
+        console.log(response);
+
+        //check if there is a movie
+        if (response.Response === "False") {
+            //access error from response
+            $("#movieNotFound").text(response.Error);
+
+            //remove display class
+            $("#movieNotFound").removeClass("d-none");
+
+            //add display class
+            $("#movieFound").addClass("d-none");
+        } else {
+            //remove display class
+            $("#movieFound").removeClass("d-none");
+
+            //add display class
+            $("#movieNotFound").addClass("d-none");
+        }
+
+        //access the first movie and append to the html
+        //movie title
+        $("#movieTitle").text(response.Title);
+
+        //release date
+        $("#year").text(response.Year);
+    });
 }
 
 //remove click handler
@@ -217,6 +266,9 @@ $("#runAddAnimal").click(function (event) {
     //target input from add animal input box and add it to the topics array
     topics.push($("#addAnimal").val().trim());
     // console.log($("#addAnimal").val().trim());
+
+    //clear text box
+    $("#addAnimal").val("");
 
     //empty dropdown menu
     $(".dropdown-menu").empty();

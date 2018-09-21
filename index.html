@@ -11,25 +11,21 @@
         crossorigin="anonymous">
     <!-- downloadjs -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.8/download.js" integrity="sha256-YZWhYBzoS9ytg//A93wj7gohVoN5rw78SPmTR2F/H7Q=" crossorigin="anonymous"></script>
+    <!-- custom styling -->
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-pink">
         <a class="navbar-brand" href="#">GifTastic</a>
-        <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button> -->
         <div class=" navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                        Animals<span class="sr-only">(current)</span>
+                        Select an animal category<span class="sr-only">(current)</span>
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        
-                    </div>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown"></div>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
@@ -38,10 +34,16 @@
             </form>
         </div>
     </nav>
-    <div class="container my-5 clearfix">
-        <h1 id="categoryName"></h1>
+    <div class="container my-4 clearfix">
+        <h1 id="categoryName" class="text-white"></h1>
+        <p id="movieFound" class="text-white">
+            I thought you might like this movie: 
+            <span id="movieTitle" class="text-info"></span>
+            | <span id="year" class="text-info"></span>
+        </p>
+        <p id="movieNotFound" class="text-white d-none"></p>
         <div id="gifColumns" class="card-columns align-items-baseline"></div>
-        <button id="viewMore" class="btn btn-dark float-right">View More</button>
+        <button id="viewMore" class="btn btn-outline-light float-right">View More</button>
     </div>
 </body>
 
